@@ -1,0 +1,25 @@
+services:
+  web:
+    privileged: true
+    image: flask-ping:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: ping-flask
+    container_name: ping-flask
+    ports:
+    - '5000:5000'
+
+  redis:
+    privileged: true
+    image: redis
+    hostname: ping-redis
+    container_name: ping-redis
+    ports:
+    - '6379:6379'
+    volumes:
+      - '/private/var/run/docker.sock:/private/var/run/docker.sock'
+      - 'data:/var/jenkins'
+volumes:
+  data:
+version: '3.7'
